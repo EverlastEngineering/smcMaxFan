@@ -1,3 +1,7 @@
+# smcMaxFan
+
+Currently, a proof of concept to have a fully automated fan control app that will run the fans at 100% PWM instead of Apple's middle-ground speed.
+
 # smcFanControl
 
 smcFanControl lets the user set a minimum speed for built-in fans. It allows you to increase your minimum fan speed to make your Intel Mac run cooler. In order to not damage your machine, smcFanControl does not let you set a minimum speed to a value below Apple's defaults.
