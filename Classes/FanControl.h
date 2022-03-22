@@ -129,6 +129,7 @@
 - (IBAction)save_favorite:(id)sender;
 - (IBAction)delete_favorite:(id)sender;
 - (IBAction)syncSliders:(id)sender;
+- (IBAction)autoConfig:(id)sender;
 - (void)apply_quickselect:(id)sender;
 - (void)apply_settings:(id)sender controllerindex:(int)cIndex;
 + (void)setRights;

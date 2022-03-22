@@ -185,13 +185,20 @@ NSArray *allSensors;
 }	
 
 +(int) get_max_speed:(int)fan_number{
-	UInt32Char_t  key;
-	SMCVal_t      val;
-	//kern_return_t result;
-	sprintf(key, "F%cMx", fannum[fan_number]);
-	SMCReadKey2(key, &val,conn);
-	int max= [self convertToNumber:val];
-	return max;
+//	UInt32Char_t  key;
+//	SMCVal_t      val;
+//	//kern_return_t result;
+//	sprintf(key, "F%cMx", fannum[fan_number]);
+//	SMCReadKey2(key, &val,conn);
+//	int max= [self convertToNumber:val];
+    int unrealisticallyHighTargetRPM = 10000;
+    
+    NSString *hex = [NSString stringWithFormat:@"%0.4x",unrealisticallyHighTargetRPM<<2];
+    [smcWrapper setKey_external:[NSString stringWithFormat:@"F%dMn",fan_number] value:hex];
+    [NSThread sleepForTimeInterval: 5]; //eww, gotta let the fan get up to speed tho. rewrite readFromSMC to first attempt max speed, then read here without the delay
+    int max = [smcWrapper get_fan_rpm:fan_number];
+    NSLog(@"True max speed on fan %d: %d",fan_number,max);
+    return max;
 }
 
 +(int) get_mode:(int)fan_number{

@@ -592,6 +592,23 @@ NSUserDefaults *defaults;
 	[self apply_settings:sender controllerindex:[[[theMenu itemWithTag:1] submenu] indexOfItem:sender]];
 }
 
+- (IBAction)autoConfig:(id)sender {
+    [self performMaxSpeedTest];
+}
+
+-(void)performMaxSpeedTest {
+    int i;
+    for(i=0;i<g_numFans;i++){
+        int fanspeed = [smcWrapper get_fan_rpm:i];
+        NSLog(@"Fan %d speed: %d",i,fanspeed);
+    }
+    // this sets to forced mode on fan one
+    // sudo ./smc -k "FS! " -w 0001
+    
+    // this sets to 4650 rpm
+    // sudo ./smc -k F0Tg -w 48a8
+}
+
 
 -(void)terminate:(id)sender{
 	//get last active selection
